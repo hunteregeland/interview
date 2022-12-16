@@ -10,6 +10,12 @@ link:
 	gcc -o linkedlist linkedlist.c
 	./linkedlist
 
+dll:
+	make clean
+	clear
+	gcc -o doublylinkedlist doublylinkedlist.c
+	./doublylinkedlist
+
 clean:
 	clear
 	rm -f hashtable

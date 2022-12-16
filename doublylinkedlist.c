@@ -4,6 +4,7 @@
 struct node {
     int value; // value of the node
     struct node* next; // pointer to next node in the list
+    struct node* prev; // pointer to previous node in the list
 };
 typedef struct node node_t; // define a type node_t to be a 'node' struct
 
@@ -27,6 +28,7 @@ node_t *create_new_node(int value) {
     node_t *result = malloc(sizeof(node_t)); // initialize new node (result) and allocate memory to the result node
     result->value = value; // set the value of the new node to the value passed into the function
     result->next = NULL; // set the next pointer of the new node to NULL
+    result->prev = NULL; // set the previous pointer of the new node to NULL
     return result;
 
 }
@@ -37,7 +39,11 @@ node_t *create_new_node(int value) {
 node_t *insert_at_head(node_t **head, node_t *node_to_insert) {
 
     node_to_insert->next = *head; // set the node to insert to point to the head pointer
-    *head = node_to_insert; // move the head pointer back to the node to insert
+    if (*head != NULL) {
+        (*head)->prev = node_to_insert;
+    }
+    *head = node_to_insert; // set the head pointer to the node to insert
+    node_to_insert->prev = NULL;
     return node_to_insert; // return the inserted node;
 
 }
@@ -47,8 +53,33 @@ void insert_after_node(node_t *node_to_insert_after, node_t *newnode) {
     // set the new node's next pointer to the node to insert after's next node
     newnode->next = node_to_insert_after->next;
 
+    if (newnode->next == NULL) {
+        newnode->next->prev = node_to_insert_after;
+    }
+    newnode->prev = node_to_insert_after;
+
     // set the node to insert after's next pointer to the new node
     node_to_insert_after->next = newnode;
+
+}
+
+void remove_node(node_t **head, node_t *node_to_remove) {
+
+    if (*head == node_to_remove) {
+        *head = node_to_remove->next;
+        if (*head != NULL) {
+            (*head)->prev = NULL;
+        }
+    }
+    else {
+        node_to_remove->prev->next = node_to_remove->next;
+        if (node_to_remove->next != NULL) {
+            node_to_remove->next->prev = node_to_remove->prev;
+        }
+    }
+    node_to_remove->next = NULL;
+    node_to_remove->prev = NULL;
+    return;
 
 }
 
@@ -64,8 +95,6 @@ int insert_before_node(node_t *head, node_t *node_to_insert_before, node_t *newn
         
     while (current != NULL) { // from 0 until temp is NULL, end of list
         if (current == node_to_insert_before) {
-            printf("at node: %d\n", current->value);
-            printf("previous: %d\n", previous->value);
             newnode->next = current;
             previous->next = newnode;
             return 1;
@@ -118,6 +147,14 @@ int main() {
 
     // output the list to the console
     printlist(head);
+
+    remove_node(&head, tmp);
+    remove_node(&head, head);
+
+    // output the list to the console
+    printf("\n");
+    printlist(head);
+
 
     return 0;
     
