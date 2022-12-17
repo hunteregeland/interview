@@ -16,6 +16,12 @@ dll:
 	gcc -o doublylinkedlist doublylinkedlist.c
 	./doublylinkedlist
 
+stack_:
+	make clean
+	clear
+	gcc -o stack stack.c
+	./stack
+
 clean:
 	clear
 	rm -f hashtable
