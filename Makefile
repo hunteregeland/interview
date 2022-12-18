@@ -4,6 +4,12 @@ hash:
 	gcc -o hashtable hashtable.c
 	./hashtable
 
+hashprac1:
+	make clean
+	clear
+	gcc -o hashprac hashprac1.c
+	./hashprac
+
 link:
 	make clean
 	clear
