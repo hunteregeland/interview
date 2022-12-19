@@ -3,34 +3,33 @@
 #include <string.h>
 
 #define TABLE_SIZE 10
-#define MAX_NAME 256
 
-char names[5][256] = {"Hunter", "Laron", "Kim", "Danny", "Alexis"};
+int names = {'a','b','c','d','e'};
 
 typedef struct {
-    char name[MAX_NAME];
+    char initial;
 } person;
 
 // create hash table
 person * hash_table[TABLE_SIZE];
 
-int hash(char name[MAX_NAME]) {
+int hash(char initial) {
 
-    int length = strnlen(name, MAX_NAME);
+    int length = strlen(initial);
     int hash_value = 0;
 
     for (int i = 0; i < length; i++) {
-        hash_value += name[i];
-        hash_value = (hash_value * name[i]) % MAX_NAME;
+        hash_value += initial;
+        hash_value = (hash_value * initial) % TABLE_SIZE;
     }
 
     return hash_value;
 
 }
 
-person convert_element_to_person(char array[5][256], int array_index) {
+person convert_element_to_person(char array[5], int array_index) {
 
-    person temporary = {.name = array[array_index]};
+    person temporary = {.name = names[0]};
     return temporary;
 
 }

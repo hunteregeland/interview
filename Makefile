@@ -28,6 +28,18 @@ stack_:
 	gcc -o stack stack.c
 	./stack
 
+queue_:
+	make clean
+	clear
+	gcc -o queue queue.c
+	./queue
+
+atoi_:
+	make clean
+	clear
+	gcc -o atoi atoi2.c
+	./atoi
+
 clean:
 	clear
 	rm -f hashtable
