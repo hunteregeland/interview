@@ -40,7 +40,13 @@ atoi_:
 	gcc -o atoi atoi2.c
 	./atoi
 
+bubble:
+	make clean
+	clear
+	gcc -o bubblesort bubblesort.c
+	./bubblesort
+
 clean:
 	clear
-	rm -f hashtable
+	rm -f hashtable; rm -f bubblesort; rm -f atoi; rm -f hashprac; rm -f hashprac1; rm -f linkedlist; rm -f queue; rm -f stack
 	ls -l
